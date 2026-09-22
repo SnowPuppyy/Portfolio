@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Rivera — Full Stack Architect & Tech Lead</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        dark: {
+                            bg: '#0a0d14',
+                            card: '#121723',
+                            border: '#1f293d',
+                            glass: 'rgba(18, 23, 35, 0.75)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Glassmorphism Styles -->
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(18, 23, 35, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(135deg, #3b82f6, #a855f7, #ec4899);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.25;
+            transition: opacity 0.3s ease;
+        }
+        .gradient-border:hover::before {
+            opacity: 0.8;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0d14;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        .light ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-slate-200 dark:bg-dark-bg dark:text-slate-200 light:bg-slate-50 light:text-slate-800 transition-colors duration-300 min-h-screen selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-8 py-4 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto flex items-center justify-between glass-panel rounded-2xl px-6 py-3 shadow-xl">
+            <!-- Brand Logo -->
+            <a href="#about" onclick="switchTab('about')" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition duration-300">
+                    AR
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg leading-tight tracking-tight text-white dark:text-white light:text-slate-900">Alex Rivera</span>
+                    <span class="text-xs text-slate-400 font-mono">portfolio.dev</span>
+                </div>
+            </a>
+
+            <!-- Navigation Tabs (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-1 bg-slate-900/40 dark:bg-slate-900/50 light:bg-slate-200/50 p-1.5 rounded-xl border border-white/5">
+                <button onclick="switchTab('about')" class="nav-tab px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-white bg-brand-600 shadow-md shadow-brand-600/30" data-tab="about">
+                    <i class="fa-solid fa-user text-xs mr-2"></i>About
+                </button>
+                <button onclick="switchTab('projects')" class="nav-tab px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/5" data-tab="projects">
+                    <i class="fa-solid fa-folder-open text-xs mr-2"></i>Projects & Downloads
+                </button>
+                <button onclick="switchTab('gallery')" class="nav-tab px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/5" data-tab="gallery">
+                    <i class="fa-solid fa-images text-xs mr-2"></i>Gallery
+                </button>
+                <button onclick="switchTab('contact')" class="nav-tab px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/5" data-tab="contact">
+                    <i class="fa-solid fa-paper-plane text-xs mr-2"></i>Contact
+                </button>
+            </nav>
+
+            <!-- Actions & Mobile Menu Toggle -->
+            <div class="flex items-center space-x-3">
+                <button id="theme-toggle" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-slate-300 hover:text-white transition duration-200" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-sun text-amber-400 hidden dark:block"></i>
+                    <i class="fa-solid fa-moon text-slate-700 block dark:hidden"></i>
+                </button>
+
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-3 glass-panel rounded-2xl p-4 flex-col space-y-2 shadow-2xl">
+            <button onclick="switchTab('about'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-white/10 text-white flex items-center space-x-3">
+                <i class="fa-solid fa-user w-5 text-brand-500"></i><span>About</span>
+            </button>
+            <button onclick="switchTab('projects'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-white/10 text-slate-300 flex items-center space-x-3">
+                <i class="fa-solid fa-folder-open w-5 text-purple-400"></i><span>Projects & Downloads</span>
+            </button>
+            <button onclick="switchTab('gallery'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-white/10 text-slate-300 flex items-center space-x-3">
+                <i class="fa-solid fa-images w-5 text-pink-400"></i><span>Gallery</span>
+            </button>
+            <button onclick="switchTab('contact'); toggleMobileMenu()" class="w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-white/10 text-slate-300 flex items-center space-x-3">
+                <i class="fa-solid fa-paper-plane w-5 text-emerald-400"></i><span>Contact</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-8">
+
+        <!-- ================= TAB 1: ABOUT / HERO ================= -->
+        <section id="tab-about" class="tab-content space-y-16">
+            
+            <!-- Hero Banner -->
+            <div class="relative glass-panel rounded-3xl p-8 sm:p-12 md:p-16 overflow-hidden gradient-border">
+                <div class="absolute -right-20 -top-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                    <div class="lg:col-span-8 space-y-6">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span>Available for Senior Engineering Roles</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none text-white">
+                            Building scalable <br>
+                            <span class="gradient-text">software architectures</span> & tools.
+                        </h1>
+
+                        <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-lg leading-relaxed max-w-2xl font-normal">
+                            I'm <strong class="text-white">Alex Rivera</strong>, a Full-Stack Systems Architect with over 8 years of experience designing high-throughput web applications, cloud-native infrastructure, and open-source developer tooling.
+                        </p>
+
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="switchTab('projects')" class="bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-brand-500/25 transition duration-300 flex items-center space-x-2 group">
+                                <span>Explore Projects</span>
+                                <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+                            </button>
+
+                            <button onclick="triggerFileDownload('Resume_Alex_Rivera.pdf', '2.4 MB')" class="glass-panel hover:bg-white/10 text-white font-semibold px-6 py-3.5 rounded-xl transition duration-300 flex items-center space-x-2">
+                                <i class="fa-solid fa-file-arrow-down text-brand-400"></i>
+                                <span>Download Resume (PDF)</span>
+                            </button>
+                        </div>
+
+                        <!-- Social Media Strip -->
+                        <div class="pt-6 flex items-center space-x-4 border-t border-white/10">
+                            <span class="text-xs font-medium text-slate-400 uppercase tracking-widest font-mono">Connect:</span>
+                            <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500/20 transition duration-200">
+                                <i class="fa-brands fa-github text-lg"></i>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500/20 transition duration-200">
+                                <i class="fa-brands fa-linkedin text-lg"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500/20 transition duration-200">
+                                <i class="fa-brands fa-x-twitter text-lg"></i>
+                            </a>
+                            <a href="mailto:alex@riveradev.io" class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center text-slate-300 hover:text-white hover:bg-brand-500/20 transition duration-200">
+                                <i class="fa-solid fa-envelope text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex justify-center">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-pink-500 rounded-3xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Alex Rivera" class="relative rounded-2xl w-full max-w-sm aspect-square object-cover shadow-2xl border border-white/10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Full-Stack Scale</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Architected high-volume APIs handling 100M+ monthly requests with Go, TypeScript, and microservices.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Open Source</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Creator of popular developer utility packages with over 50,000+ downloads across GitHub & NPM.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white">Design & UX</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Obsessed with craft, accessible UI design systems, and responsive front-end execution.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 2: PROJECTS & DOWNLOADS ================= -->
+        <section id="tab-projects" class="tab-content hidden space-y-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4 border-b border-white/10">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Projects & Releases</h2>
+                    <p class="text-sm text-slate-400 mt-1">Explore software packages, open-source utilities, and downloadable source code archives.</p>
+                </div>
+
+                <!-- Search & Filters Container -->
+                <div class="flex flex-col sm:flex-row items-center gap-3">
+                    <div class="relative w-full sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-slate-400"></i>
+                        <input type="text" id="project-search-input" onkeyup="filterProjects()" placeholder="Search projects..." class="w-full bg-slate-900/60 border border-white/10 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition">
+                    </div>
+
+                    <div class="flex items-center space-x-1 bg-slate-900/60 p-1 rounded-xl border border-white/10 w-full sm:w-auto">
+                        <button onclick="setProjectCategory('all')" class="proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 transition" data-cat="all">All</button>
+                        <button onclick="setProjectCategory('apps')" class="proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-cat="apps">Apps</button>
+                        <button onclick="setProjectCategory('tools')" class="proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-cat="tools">Tools</button>
+                        <button onclick="setProjectCategory('docs')" class="proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-cat="docs">Docs</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-container">
+                <!-- Dynamically rendered via JavaScript -->
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 3: PICTURES / GALLERY ================= -->
+        <section id="tab-gallery" class="tab-content hidden space-y-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4 border-b border-white/10">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Image Gallery</h2>
+                    <p class="text-sm text-slate-400 mt-1">A visual collection of workstation setups, project visual designs, and personal photography.</p>
+                </div>
+
+                <!-- Gallery Category Filters -->
+                <div class="flex items-center space-x-1 bg-slate-900/60 p-1 rounded-xl border border-white/10">
+                    <button onclick="setGalleryCategory('all')" class="gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 transition" data-gcat="all">All Photos</button>
+                    <button onclick="setGalleryCategory('workspace')" class="gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-gcat="workspace">Workspace</button>
+                    <button onclick="setGalleryCategory('projects')" class="gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-gcat="projects">Projects</button>
+                    <button onclick="setGalleryCategory('photography')" class="gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition" data-gcat="photography">Photography</button>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+                <!-- Dynamically rendered gallery items -->
+            </div>
+
+        </section>
+
+        <!-- ================= TAB 4: CONTACT ================= -->
+        <section id="tab-contact" class="tab-content hidden max-w-3xl mx-auto">
+            <div class="glass-panel p-8 sm:p-10 rounded-3xl space-y-8 gradient-border">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Let's Connect</h2>
+                    <p class="text-sm text-slate-400 mt-1">Send a message regarding freelance contracts, tech advisory, or project collaboration.</p>
+                </div>
+
+                <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Your Name</label>
+                            <input type="text" required placeholder="Satoshi Nakamoto" class="w-full bg-slate-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Email Address</label>
+                            <input type="email" required placeholder="satoshi@bitcoin.org" class="w-full bg-slate-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Subject</label>
+                        <input type="text" required placeholder="System Architecture Consulting" class="w-full bg-slate-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Message</label>
+                        <textarea rows="5" required placeholder="Tell me about your project scope and timelines..." class="w-full bg-slate-900/80 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500 transition"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg shadow-brand-500/25 transition duration-300 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-paper-plane text-sm"></i>
+                        <span>Send Message</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Full-screen Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex-col justify-between p-4 sm:p-8 transition-all duration-300">
+        <div class="flex items-center justify-between text-white max-w-6xl mx-auto w-full">
+            <div>
+                <h3 id="lightbox-title" class="font-bold text-lg">Image Title</h3>
+                <p id="lightbox-desc" class="text-xs text-slate-400">Description</p>
+            </div>
+            <button onclick="closeLightbox()" class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-slate-300 hover:text-white transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <div class="relative max-w-5xl mx-auto w-full flex items-center justify-center my-auto">
+            <button onclick="prevLightboxImage()" class="absolute left-2 sm:left-4 z-10 w-12 h-12 rounded-2xl glass-panel text-white flex items-center justify-center hover:bg-white/20 transition">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <img id="lightbox-img" src="" alt="Gallery Image" class="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl border border-white/10">
+
+            <button onclick="nextLightboxImage()" class="absolute right-2 sm:right-4 z-10 w-12 h-12 rounded-2xl glass-panel text-white flex items-center justify-center hover:bg-white/20 transition">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="text-center text-xs text-slate-500 font-mono">
+            Press ESC or Click Close to Exit
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300">
+        <div class="glass-panel border-l-4 border-brand-500 p-4 rounded-xl shadow-2xl flex items-center space-x-4 max-w-md">
+            <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg flex-shrink-0">
+                <i class="fa-solid fa-circle-check" id="toast-icon"></i>
+            </div>
+            <div>
+                <h4 class="text-sm font-bold text-white" id="toast-title">Notification</h4>
+                <p class="text-xs text-slate-400" id="toast-message">Operation successful.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Store: Projects with Downloadable Assets
+        const projectsData = [
+            {
+                id: 1,
+                title: "NextGen Cloud Microservice Kit",
+                category: "apps",
+                tags: ["Go", "Kubernetes", "gRPC"],
+                description: "Production-ready boilerplate for building cloud-native distributed microservices with automated telemetry.",
+                stars: 1420,
+                demoUrl: "https://github.com",
+                repoUrl: "https://github.com",
+                downloadFile: "NextGen_Cloud_v2.4.zip",
+                fileFormat: "ZIP",
+                fileSize: "18.4 MB"
+            },
+            {
+                id: 2,
+                title: "Apex CLI Developer Utilities",
+                category: "tools",
+                tags: ["TypeScript", "Node.js", "CLI"],
+                description: "All-in-one developer terminal utility for scaffolding API endpoints, running benchmarks, and containerizing code.",
+                stars: 890,
+                demoUrl: "https://github.com",
+                repoUrl: "https://github.com",
+                downloadFile: "Apex_CLI_v1.0.tar.gz",
+                fileFormat: "TAR.GZ",
+                fileSize: "4.2 MB"
+            },
+            {
+                id: 3,
+                title: "Neural Engine Benchmark Suite",
+                category: "tools",
+                tags: ["Python", "PyTorch", "C++"],
+                description: "Benchmarking framework for testing low-latency neural network inference models on edge hardware.",
+                stars: 620,
+                demoUrl: "https://github.com",
+                repoUrl: "https://github.com",
+                downloadFile: "Neural_Engine_Setup.exe",
+                fileFormat: "EXE",
+                fileSize: "45.0 MB"
+            },
+            {
+                id: 4,
+                title: "High-Throughput System Whitepaper",
+                category: "docs",
+                tags: ["Architecture", "PDF", "Whitepaper"],
+                description: "Technical document detailing architectural paradigms for scaling web sockets across geographically distributed nodes.",
+                stars: 310,
+                demoUrl: "https://github.com",
+                repoUrl: "https://github.com",
+                downloadFile: "System_Architecture_2026.pdf",
+                fileFormat: "PDF",
+                fileSize: "3.8 MB"
+            }
+        ];
+
+        // Data Store: Image Gallery
+        const galleryData = [
+            {
+                id: 1,
+                title: "Ergonomic Ultrawide Workstation",
+                category: "workspace",
+                url: "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=1000",
+                desc: "Custom oak desk setup with dual displays and ambient studio lighting."
+            },
+            {
+                id: 2,
+                title: "System Architecture Dashboard",
+                category: "projects",
+                url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+                desc: "Real-time metrics dashboard for multi-cloud deployments."
+            },
+            {
+                id: 3,
+                title: "San Francisco Coastal Sunset",
+                category: "photography",
+                url: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&q=80&w=1000",
+                desc: "Captured during an evening walk by the Pacific coast."
+            },
+            {
+                id: 4,
+                title: "Custom Mechanical Keyboard & Audio",
+                category: "workspace",
+                url: "https://images.unsplash.com/photo-1616469829941-c7200edec809?auto=format&fit=crop&q=80&w=1000",
+                desc: "Lubricated switches with custom PBT keycaps and studio DAC."
+            },
+            {
+                id: 5,
+                title: "Mobile App Dark UI Interface",
+                category: "projects",
+                url: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000",
+                desc: "Minimalist mobile design system UI kit preview."
+            },
+            {
+                id: 6,
+                title: "Yosemite National Park Vista",
+                category: "photography",
+                url: "https://images.unsplash.com/photo-1426604966848-d7adacbd02bff?auto=format&fit=crop&q=80&w=1000",
+                desc: "Weekend trekking photo looking towards El Capitan."
+            }
+        ];
+
+        let currentActiveProjectCat = 'all';
+        let currentActiveGalleryCat = 'all';
+        let currentLightboxIndex = 0;
+
+        // Navigation Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const targetTab = document.getElementById(`tab-${tabId}`);
+            if (targetTab) targetTab.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                if (btn.dataset.tab === tabId) {
+                    btn.className = "nav-tab px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-white bg-brand-600 shadow-md shadow-brand-600/30";
+                } else {
+                    btn.className = "nav-tab px-5 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/5";
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        // Render Projects Grid
+        function renderProjects(data = projectsData) {
+            const container = document.getElementById('projects-container');
+            if (!container) return;
+
+            if (data.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-12 text-slate-400">No matching projects found.</div>`;
+                return;
+            }
+
+            container.innerHTML = data.map(proj => `
+                <div class="glass-panel p-6 rounded-2xl flex flex-col justify-between space-y-4 hover:border-brand-500/50 transition duration-300">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-white">${proj.title}</h3>
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-md bg-white/10 text-brand-400 border border-white/5">
+                                ${proj.fileFormat}
+                            </span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-1.5">
+                            ${proj.tags.map(tag => `<span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-white/5">${tag}</span>`).join('')}
+                        </div>
+
+                        <p class="text-sm text-slate-300 leading-relaxed">${proj.description}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3 text-xs text-slate-400">
+                            <a href="${proj.repoUrl}" target="_blank" class="hover:text-white transition flex items-center space-x-1">
+                                <i class="fa-brands fa-github text-sm"></i>
+                                <span>Code Repo</span>
+                            </a>
+                        </div>
+
+                        <button onclick="triggerFileDownload('${proj.downloadFile}', '${proj.fileSize}')" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition duration-200 shadow-lg shadow-emerald-600/20 flex items-center space-x-2">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download (${proj.fileSize})</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Project Filtering
+        function filterProjects() {
+            const query = document.getElementById('project-search-input').value.toLowerCase();
+            const filtered = projectsData.filter(p => {
+                const matchesCat = currentActiveProjectCat === 'all' || p.category === currentActiveProjectCat;
+                const matchesSearch = p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query) || p.tags.some(t => t.toLowerCase().includes(query));
+                return matchesCat && matchesSearch;
+            });
+            renderProjects(filtered);
+        }
+
+        function setProjectCategory(cat) {
+            currentActiveProjectCat = cat;
+            document.querySelectorAll('.proj-cat-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = "proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 transition";
+                } else {
+                    btn.className = "proj-cat-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition";
+                }
+            });
+            filterProjects();
+        }
+
+        // Render Gallery Grid
+        function renderGallery(cat = 'all') {
+            const grid = document.getElementById('gallery-grid');
+            if (!grid) return;
+
+            const items = cat === 'all' ? galleryData : galleryData.filter(g => g.category === cat);
+
+            grid.innerHTML = items.map((item, idx) => `
+                <div onclick="openLightbox(${idx})" class="group relative glass-panel rounded-2xl overflow-hidden cursor-pointer aspect-video border border-white/10 hover:border-brand-500/50 transition duration-300">
+                    <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
+                        <span class="text-xs font-semibold text-brand-400 uppercase tracking-wider">${item.category}</span>
+                        <h4 class="text-sm font-bold text-white">${item.title}</h4>
+                        <p class="text-xs text-slate-300">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setGalleryCategory(cat) {
+            currentActiveGalleryCat = cat;
+            document.querySelectorAll('.gal-cat-btn').forEach(btn => {
+                if (btn.dataset.gcat === cat) {
+                    btn.className = "gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-brand-600 transition";
+                } else {
+                    btn.className = "gal-cat-btn px-4 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition";
+                }
+            });
+            renderGallery(cat);
+        }
+
+        // Lightbox Functions
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const item = galleryData[index];
+            if (!item) return;
+
+            document.getElementById('lightbox-img').src = item.url;
+            document.getElementById('lightbox-title').innerText = item.title;
+            document.getElementById('lightbox-desc').innerText = item.desc;
+
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        function prevLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryData.length) % galleryData.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        function nextLightboxImage() {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryData.length;
+            openLightbox(currentLightboxIndex);
+        }
+
+        // Simulated Download Notification Toast
+        function triggerFileDownload(fileName, fileSize) {
+            showToast("Download Initialized", `Saving ${fileName} (${fileSize}) to your downloads.`);
+        }
+
+        // Contact Form Handling
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Message Sent!", "Thank you for reaching out. I'll get back to you shortly.");
+            document.getElementById('contact-form').reset();
+        }
+
+        // General Toast Notification Function
+        function showToast(title, message) {
+            const container = document.getElementById('toast-container');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+
+            container.classList.remove('translate-y-24', 'opacity-0');
+            container.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                container.classList.remove('translate-y-0', 'opacity-100');
+                container.classList.add('translate-y-24', 'opacity-0');
+            }, 4000);
+        }
+
+        // Theme Toggle Handler
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+            }
+        });
+
+        // Keyboard Shortcut for Lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextLightboxImage();
+            if (e.key === 'ArrowLeft') prevLightboxImage();
+        });
+
+        // Initialize on Window Load
+        window.onload = function() {
+            renderProjects();
+            renderGallery();
+        };
+    </script>
+</body>
+</html>

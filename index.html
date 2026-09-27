@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alfred Lo Kai Xuan — Game & Graphics Programmer</title>
+<title>Alfred Lo Kai Xuan</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 
 <header class="fixed top-0 inset-x-0 z-40 brdr border-t-0 border-x-0 bg-black/70 backdrop-blur">
   <div class="max-w-4xl mx-auto px-5 py-3 flex items-center justify-between text-sm">
-    <a href="#top" class="font-bold" style="color:var(--amber)">Alfred LO Kai Xuan</a>
+    <a href="#top" class="font-bold" style="color:var(--amber)">Alfred Lo Kai Xuan</a>
     <nav class="hidden sm:flex gap-6" style="color:var(--dim)">
       <a href="#projects" class="hover:text-[var(--ink)] transition">Projects</a>
       <a href="#about" class="hover:text-[var(--ink)] transition">About Me</a>
@@ -47,7 +47,7 @@
   <!-- HERO -->
   <section class="space-y-5">
     <h1 class="text-3xl sm:text-4xl font-bold leading-snug">
-      Alfred LO Kai Xuan — Game Programmer, OpenGL Graphics Developer, C & C++, Lua, Python, Arduino.
+      Alfred Lo Kai Xuan — Programmer: C, C++, Lua, Python, Arduino.
     </h1>
     <p class="max-w-xl leading-relaxed" style="color:var(--dim)">
       Computer Science in Real-Time Interactive Simulation student at DigiPen Institute of Technology, Singapore.
@@ -74,15 +74,23 @@
     <h2 class="text-2xl font-bold" style="color:var(--ink)">About Me</h2>
     <div class="grid sm:grid-cols-[1fr_2fr] gap-6 items-start">
       <img src="https://media.licdn.com/dms/image/v2/D5603AQGAa-JO5-6lzA/profile-displayphoto-scale_200_200/B56ZqempCkHYAY-/0/1763597524382?e=1792022400&v=beta&t=A5cMEnkLQBOYiDV-JY4cIwj8JTMZoiKxDr7b-8H950g"
-           alt="Alfred LO Kai Xuan" class="w-full max-w-[220px] rounded brdr object-cover aspect-square">
+           alt="Alfred Lo Kai Xuan" class="w-full max-w-[220px] rounded brdr object-cover aspect-square">
       <div class="space-y-4 leading-relaxed" style="color:var(--dim)">
-        <p>I'm a student at <span style="color:var(--ink)">DigiPen Institute of Technology, Singapore</span>, focused on game and graphics programming. Coursework spans AI programming, real-time rendering, game engine development, and data structures.</p>
-        <p>I like aspects of game development, particularly the technical challenges involved in creating immersive experiences.</p>
+        <p>I'm a student at <span style="color:var(--ink)">DigiPen Institute of Technology, Singapore</span>, pursuing a <span style="color:var(--ink)">Degree in Real-Time Interactive Simulation</span>, with a focus on game engine development, AI programming, real-time rendering, and data structures.</p>
+        <p>My interest in game development comes from building interactive experiences and solving the technical challenges behind them. Outside of my coursework, I also develop games on Roblox, where I explore gameplay programming and interactive systems in my free time.</p>
+        <p>Before DigiPen, I pursued a <span style="color:var(--ink)">Diploma in Mechatronics & Robotics Engineering</span> at <span style="color:var(--ink)">Singapore Polytechnic</span>, where I developed experience with robotics, automation, programming, and engineering systems. This background has shaped my interest in combining software and hardware concepts to create responsive and interactive experiences.</p>
+
         <div class="flex flex-wrap gap-2 pt-1 text-xs">
+          <span class="px-2 py-1 rounded tag">C</span>
           <span class="px-2 py-1 rounded tag">C++</span>
           <span class="px-2 py-1 rounded tag">OpenGL</span>
-          <span class="px-2 py-1 rounded tag">x86-64 ASM</span>
-          <span class="px-2 py-1 rounded tag">Game AI</span>
+          <span class="px-2 py-1 rounded tag">Game Development</span>
+          <span class="px-2 py-1 rounded tag">Lua</span>
+          <span class="px-2 py-1 rounded tag">Python</span>
+          <span class="px-2 py-1 rounded tag">Arduino</span>
+          <span class="px-2 py-1 rounded tag">Programmable Logic Controller (PLC)</span>
+          <span class="px-2 py-1 rounded tag">Autodesk Inventor</span>
+          <span class="px-2 py-1 rounded tag">Autodesk AutoCAD</span>
         </div>
       </div>
     </div>
@@ -99,8 +107,8 @@
       <a href="https://www.linkedin.com/in/alfred-lo-kai-xuan/" target="_blank" class="brdr rounded px-4 py-3 hover:border-[var(--amber-dim)] transition flex items-center justify-between">
         <span>LinkedIn</span><span style="color:var(--dim)">↗</span>
       </a>
-      <a href="tel:+65 9622 7155" class="brdr rounded px-4 py-3 hover:border-[var(--amber-dim)] transition flex items-center justify-between">
-        <span>Phone Number</span>
+      <a class="brdr rounded px-4 py-3 hover:border-[var(--amber-dim)] transition flex items-center justify-between">
+        <span>Phone Number: +65 96227155</span>
       </a>
     </div>
   </section>
@@ -120,16 +128,15 @@
 
 </main>
 
-<footer class="text-center text-xs pb-8" style="color:var(--line)">© 2026 Alfred LO Kai Xuan</footer>
-
 <script>
 const projects = [
-  {t:"Hellmaker Engine", c:"academic", d:"Custom 2D engine milestone: instanced-batch render system with multi-pass lighting, a Camera2D system, and an editor gizmo with undo-redo.", long:"Add a longer write-up here.", tags:["C++","OpenGL","Tooling"]},
-  {t:"A* Pathfinder", c:"academic", d:"From-scratch pathfinder with rubberbanding, Catmull-Rom path smoothing, and five heuristics — passed all automated timing tests.", long:"Add a longer write-up here.", tags:["C++","Pathfinding"]},
-  {t:"Zombie Behavior Trees", c:"academic", d:"Behavior tree system for a survival sim: 13 custom nodes across 4 agent trees, tuned for formation and pursuit behavior.", long:"Add a longer write-up here.", tags:["C++","AI"]},
-  {t:"BVH & k-d Tree Acceleration", c:"academic", d:"Ray-tracing acceleration structures: a BVH build and a SAH-constructed k-d tree, including brute-force parity debugging.", long:"Add a longer write-up here.", tags:["C++","Ray Tracing"]},
-  {t:"Terrain Analysis AI", c:"academic", d:"Visibility, occupancy propagation, and field-of-view logic for a hide-and-seek terrain analysis system.", long:"Add a longer write-up here.", tags:["C++","AI"]},
-  {t:"Geometry Library", c:"academic", d:"Intersection routines: Möller–Trumbore triangle tests, Kay-Kajiya slab AABB tests, and Ritter's bounding sphere.", long:"Add a longer write-up here.", tags:["C++","Geometry"]},
+  {t:"Cubic Dash (GAM100)", c:"academic", img:"", d:"Designed the game's 2D visual elements and implemented core gameplay systems, including player controls, gravity, and the leaderboard system.", long:"Add a longer write-up here.", tags:["C","Gameplay Programming", "2D Game"]},
+  {t:"DreamScape (GAM150)", c:"academic", img:"", d:"Designed and implemented the game's UI and 2D visual elements, including menus, boss interfaces, health bars, and other player-facing visuals. Also designed the player class systems and core gameplay mechanics.", long:"Add a longer write-up here.", tags:["C++", "Visual Design", "2D Game"]},
+  {t:"Hellmaker Engine (GAM200/250)", c:"academic", img:"", d:"Implementation of Graphics (OpenGL) and Camera Components for a 2D Custom Engine, instanced-batch render system with multi-pass lighting, a Camera2D system, and an editor gizmo.", long:"Add a longer write-up here.", tags:["C++", "OpenGL", "Gizmo", "ImGui", "2D Game Engine", "Graphics Programming", "Camera System"]},
+  {t:"Final Year Engineering Project (SP)", c:"academic", img:"", d:"Implementation of PLC ladder logic with ROS Modbus System for an Automated Guided Vehicle with Mecanum Wheels guided by LIDAR, Line Tracking and Ultrasonic Sensors to carry a 100kg Reactor in Partnership with ESCO Aster.", long:"Add a longer write-up here.", tags:["Siemens PLC", "Robotics", "Engineering", "LIDAR", "Line Tracking", "Ultrasonic Sensors"]},
+
+  {t:"Personal Roblox Project 1", c:"personal", img:"", d:"Testing of a Tower defense game with towers and abilities against a wave of enemies.", long:"Add a longer write-up here.", tags:["Tower Defense", "Luau"]},
+  {t:"Personal Roblox Project 2", c:"personal", img:"", d:"Testing project for Magic Spells with point capture mechanics.", long:"Add a longer write-up here.", tags:["Magic","Luau"]},
 ];
 
 let currentList = projects;
@@ -143,6 +150,9 @@ function render(filter='all'){
   }
   grid.innerHTML = currentList.map((p,i) => `
       <div onclick="openProject(${i})" class="brdr rounded p-4 space-y-2 hover:border-[var(--amber-dim)] transition cursor-pointer">
+        ${p.img
+          ? `<img src="${p.img}" alt="${p.t}" class="w-full aspect-video object-cover rounded brdr">`
+          : `<div class="w-full aspect-video rounded brdr border-dashed flex items-center justify-center text-[10px]" style="color:var(--dim)">Add image here</div>`}
         <h3 class="font-bold text-sm" style="color:var(--ink)">${p.t}</h3>
         <p class="text-xs leading-relaxed" style="color:var(--dim)">${p.d}</p>
         <div class="flex flex-wrap gap-1.5 pt-1">

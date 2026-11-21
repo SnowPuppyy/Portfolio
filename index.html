@@ -118,24 +118,60 @@
 
   <!-- PROJECT DETAIL PAGE -->
   <div id="project-view" class="hidden space-y-6">
-    <a href="#projects" onclick="closeProject()" class="text-sm inline-block" style="color:var(--dim)">&larr; Back to projects</a>
+
+    <a href="#projects" onclick="closeProject()" class="text-sm inline-block" style="color:var(--dim)">
+      &larr; Back to projects
+    </a>
+
     <h2 id="p-title" class="text-2xl sm:text-3xl font-bold" style="color:var(--ink)"></h2>
+
     <div id="p-tags" class="flex flex-wrap gap-1.5"></div>
-    <div class="aspect-video rounded brdr border-dashed flex items-center justify-center text-sm" style="color:var(--dim)">
-      Add demo video here
+
+    <!-- Project Demo Video -->
+    <div id="p-video-container" class="aspect-video rounded brdr overflow-hidden bg-black">
+      <video
+        id="p-video"
+        class="w-full h-full object-contain"
+        controls
+        playsinline
+        preload="metadata">
+      </video>
     </div>
+
     <p id="p-desc" class="leading-relaxed max-w-2xl" style="color:var(--dim)"></p>
+
   </div>
 
 </main>
 
 <script>
 const projects = [
-  {t:"Cubic Dash (GAM100)", c:"academic", img:"Images/CubicDash_1.png", d:"Designed the game's 2D visual elements and implemented core gameplay systems, including player controls, gravity, and the leaderboard system.", long:"Add a longer write-up here.", tags:["C","Gameplay Programming", "2D Game"]},
-  {t:"DreamScape (GAM150)", c:"academic", img:"Images/dreamscape_gameplay1.png", d:"Designed and implemented the game's UI and 2D visual elements, including menus, boss interfaces, health bars, and other player-facing visuals. Also designed the player class systems and core gameplay mechanics.", long:"Add a longer write-up here.", tags:["C++", "Visual Design", "2D Game"]},
-  {t:"Hellmaker Engine (GAM200/250)", c:"academic", img:"Images/death'srefrain_editor.png", d:"Implementation of Graphics (OpenGL) and Camera Components for a 2D Custom Engine, instanced-batch render system with multi-pass lighting, a Camera2D system, and an editor gizmo.", long:"Add a longer write-up here.", tags:["C++", "OpenGL", "Gizmo", "ImGui", "2D Game Engine", "Graphics Programming", "Camera System"]},
-  {t:"Final Year Engineering Project (SP)", c:"academic", img:"Images/AGV_SP.png", d:"Implementation of PLC ladder logic with ROS Modbus System for an Automated Guided Vehicle with Mecanum Wheels guided by LIDAR, Line Tracking and Ultrasonic Sensors to carry a 100kg Reactor in Partnership with ESCO Aster.", long:"Add a longer write-up here.", tags:["Siemens PLC", "Robotics", "Engineering", "LIDAR", "Line Tracking", "Ultrasonic Sensors"]},
+  {t:"Cubic Dash (SIT DigiPen GAM100)", c:"academic", 
+  img:"Images/CubicDash_1.png", 
+  video:"Videos/FuriousFive_10sec_CubicDash.mp4",
+  d:"Designed the game's 2D visual elements and implemented core gameplay systems, including player controls, gravity, and the leaderboard system.", 
+  long:"Add a longer write-up here.", 
+  tags:["C","Gameplay Programming", "2D Game"]},
 
+  {t:"DreamScape (SIT DigiPen GAM150)", c:"academic", 
+  img:"Images/dreamscape_gameplay1.png", 
+  video:"Videos/CoverMe_DreamScape.mp4",
+  d:"Designed and implemented the game's UI and 2D visual elements, including menus, boss interfaces, health bars, and other player-facing visuals. Also designed the player class systems and core gameplay mechanics.", 
+  long:"Add a longer write-up here.", 
+  tags:["C++", "Visual Design", "2D Game"]},
+
+  {t:"Hellmaker Engine (SIT DigiPen GAM200/250)", c:"academic", 
+  img:"Images/death'srefrain_editor.png", 
+  d:"Implementation of Graphics (OpenGL) and Camera Components for a 2D Custom Engine, instanced-batch render system with multi-pass lighting, a Camera2D system, and an editor gizmo.", 
+  long:"Add a longer write-up here.", 
+  tags:["C++", "OpenGL", "Gizmo", "ImGui", "2D Game Engine", "Graphics Programming", "Camera System"]},
+
+  {t:"Final Year Engineering Project (Singapore Polytechnic)", c:"academic", 
+  img:"Images/AGV_SP.png", 
+  video:"Videos/AGV_SP.MOV",
+  d:"Implementation of PLC ladder logic with ROS Modbus System for an Automated Guided Vehicle with Mecanum Wheels guided by LIDAR, Line Tracking and Ultrasonic Sensors to carry a 100kg Reactor in Partnership with ESCO Aster.", 
+  long:"Add a longer write-up here.", 
+  tags:["Siemens PLC", "Robotics", "Engineering", "LIDAR", "Line Tracking", "Ultrasonic Sensors"]},
 
 ];
 
@@ -172,14 +208,48 @@ function closeProject(){
 function showProjectPage(idx){
   const p = projects[idx];
   if(!p) return closeProject();
+
   document.getElementById('p-title').textContent = p.t;
   document.getElementById('p-desc').textContent = p.long;
-  document.getElementById('p-tags').innerHTML = p.tags.map(t=>`<span class="text-[10px] px-2 py-0.5 rounded brdr" style="color:var(--dim)">${t}</span>`).join('');
+
+  document.getElementById('p-tags').innerHTML =
+    p.tags.map(t =>
+      `<span class="text-[10px] px-2 py-0.5 rounded brdr" style="color:var(--dim)">${t}</span>`
+    ).join('');
+
+  // Load the selected project's video
+  const video = document.getElementById('p-video');
+  const videoContainer = document.getElementById('p-video-container');
+
+  video.pause();
+
+  if(p.video){
+    video.src = p.video;
+    video.load();
+    videoContainer.classList.remove('hidden');
+  }
+  else{
+    video.removeAttribute('src');
+    video.load();
+    videoContainer.classList.add('hidden');
+  }
+
   document.getElementById('list-view').classList.add('hidden');
   document.getElementById('project-view').classList.remove('hidden');
+
   window.scrollTo(0,0);
 }
 function showList(){
+
+  // Stop and unload the current project video
+  const video = document.getElementById('p-video');
+
+  video.pause();
+  video.currentTime = 0;
+  video.removeAttribute('src');
+  video.load();
+
+  // Return to project listing
   document.getElementById('project-view').classList.add('hidden');
   document.getElementById('list-view').classList.remove('hidden');
 }
